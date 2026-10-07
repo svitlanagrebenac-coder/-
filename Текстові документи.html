@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Текстові документи — 7 клас</title>
+
+<style>
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+color: #000;
+background:
+linear-gradient(rgba(220,238,250,0.9), rgba(238,247,252,0.95)),
+repeating-linear-gradient(
+45deg,
+transparent,
+transparent 35px,
+rgba(30,90,140,0.06) 36px,
+rgba(30,90,140,0.06) 37px
+);
+}
+
+/* Декоративний інформатичний фон */
+body::before {
+content: "DOCX PDF TXT ODT < > { } Aa 📄 📁 ⌨ .doc .rtf";
+position: fixed;
+top: 20px;
+left: 0;
+width: 100%;
+text-align: center;
+font-size: 25px;
+font-weight: bold;
+letter-spacing: 8px;
+color: rgba(20, 80, 130, 0.08);
+z-index: -1;
+pointer-events: none;
+}
+
+.container {
+max-width: 1000px;
+margin: 30px auto;
+padding: 20px;
+}
+
+/* Шапка */
+.header {
+background: rgba(255,255,255,0.96);
+border-radius: 25px;
+padding: 30px;
+text-align: center;
+box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+border: 2px solid #b9d4e7;
+}
+
+.header h1 {
+margin: 0;
+font-size: 36px;
+color: #000;
+}
+
+.header p {
+font-size: 18px;
+color: #000;
+}
+
+/* Навігація */
+.tabs {
+display: flex;
+gap: 10px;
+justify-content: center;
+flex-wrap: wrap;
+margin: 20px 0;
+}
+
+.tabs button {
+padding: 13px 22px;
+border: none;
+border-radius: 12px;
+background: white;
+color: #000;
+font-weight: bold;
+cursor: pointer;
+box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.tabs button:hover {
+background: #e9f4ff;
+}
+
+.tabs button.active {
+background: #1857a6;
+color: white;
+}
+
+/* Сторінки */
+.page {
+display: none;
+background: rgba(255,255,255,0.97);
+padding: 25px;
+border-radius: 22px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.page.active {
+display: block;
+}
+
+h2 {
+color: #000;
+border-bottom: 2px solid #bcd5e8;
+padding-bottom: 8px;
+}
+
+h3 {
+color: #000;
+}
+
+/* Інформаційний блок */
+.info {
+background: #edf7ff;
+border-left: 6px solid #1857a6;
+border-radius: 12px;
+padding: 18px;
+margin: 15px 0;
+line-height: 1.6;
+}
+
+/* Картки */
+.cards {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 15px;
+}
+
+.card {
+background: white;
+border: 1px solid #c9dce9;
+border-radius: 15px;
+padding: 18px;
+transition: 0.2s;
+}
+
+.card:hover {
+transform: translateY(-3px);
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+margin-top: 0;
+}
+
+/* Формати */
+.format {
+display: flex;
+align-items: center;
+gap: 15px;
+background: white;
+border: 1px solid #c9dce9;
+border-radius: 14px;
+padding: 15px;
+}
+
+.format-icon {
+font-size: 35px;
+}
+
+/* Завдання */
+.task {
+background: white;
+border: 1px solid #cbdde9;
+border-radius: 17px;
+padding: 20px;
+margin: 18px 0;
+}
+
+.level {
+display: inline-block;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 13px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+.level1 {
+background: #dff4e8;
+}
+
+.level2 {
+background: #e1efff;
+}
+
+.level3 {
+background: #fff0d2;
+}
+
+.level4 {
+background: #eee2ff;
+}
+
+.question {
+font-size: 18px;
+font-weight: bold;
+line-height: 1.5;
+margin-bottom: 15px;
+}
+
+.option {
+display: block;
+padding: 12px;
+margin: 8px 0;
+border: 1px solid #c9d8e3;
+border-radius: 10px;
+cursor: pointer;
+color: #000;
+background: #fff;
+}
+
+.option:hover {
+background: #eef7ff;
+}
+
+.option input {
+margin-right: 10px;
+}
+
+.text-answer {
+width: 100%;
+padding: 13px;
+font-size: 17px;
+border: 1px solid #9db4c5;
+border-radius: 10px;
+color: #000;
+}
+
+/* Кнопки */
+.buttons {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+margin-top: 20px;
+}
+
+button.action {
+border: none;
+padding: 13px 22px;
+border-radius: 11px;
+background: #1857a6;
+color: white;
+font-weight: bold;
+cursor: pointer;
+}
+
+button.reset {
+background: #e5ebef;
+color: #000;
+}
+
+/* Результат */
+.feedback {
+margin-top: 10px;
+min-height: 22px;
+font-weight: bold;
+}
+
+.correct {
+color: #087a4f;
+}
+
+.wrong {
+color: #b00020;
+}
+
+.result {
+font-size: 23px;
+font-weight: bold;
+margin-top: 20px;
+color: #000;
+}
+
+/* Прогрес */
+.progress-container {
+height: 12px;
+background: #dce7ee;
+border-radius: 10px;
+overflow: hidden;
+margin: 15px 0;
+}
+
+.progress {
+height: 100%;
+width: 0%;
+background: #1857a6;
+transition: 0.4s;
+}
+
+/* Адаптивність */
+@media (max-width: 650px) {
+.container {
+padding: 10px;
+margin: 10px auto;
+}
+
+.header h1 {
+font-size: 27px;
+}
+
+.cards {
+grid-template-columns: 1fr;
+}
+
+.page {
+padding: 16px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+<h1>💻 Текстові документи</h1>
+<p><b>7 клас</b></p>
+<p>Види текстових документів та формати текстових файлів</p>
+</header>
+
+<nav class="tabs">
+<button class="active" onclick="showPage('theory', this)">
+📚 Пояснення
+</button>
+
+<button onclick="showPage('tasks', this)">
+🎯 Інтерактивні завдання
+</button>
+
+<button onclick="showPage('summary', this)">
+🏆 Підсумок
+</button>
+</nav>
+
+<!-- ================= ТЕОРІЯ ================= -->
+
+<section id="theory" class="page active">
+
+<h2>📖 Що таке текстовий документ?</h2>
+
+<div class="info">
+<b>Текстовий документ</b> — це електронний документ,
+основним вмістом якого є текстова інформація.
+Його можна створювати, редагувати, форматувати,
+зберігати та друкувати.
+</div>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Текстові документи — 7 клас</title>
+
+<style>
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+color: #000;
+background:
+linear-gradient(rgba(220,238,250,0.9), rgba(238,247,252,0.95)),
+repeating-linear-gradient(
+45deg,
+transparent,
+transparent 35px,
+rgba(30,90,140,0.06) 36px,
+rgba(30,90,140,0.06) 37px
+);
+}
+
+/* Декоративний інформатичний фон */
+body::before {
+content: "DOCX PDF TXT ODT < > { } Aa 📄 📁 ⌨ .doc .rtf";
+position: fixed;
+top: 20px;
+left: 0;
+width: 100%;
+text-align: center;
+font-size: 25px;
+font-weight: bold;
+letter-spacing: 8px;
+color: rgba(20, 80, 130, 0.08);
+z-index: -1;
+pointer-events: none;
+}
+
+.container {
+max-width: 1000px;
+margin: 30px auto;
+padding: 20px;
+}
+
+/* Шапка */
+.header {
+background: rgba(255,255,255,0.96);
+border-radius: 25px;
+padding: 30px;
+text-align: center;
+box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+border: 2px solid #b9d4e7;
+}
+
+.header h1 {
+margin: 0;
+font-size: 36px;
+color: #000;
+}
+
+.header p {
+font-size: 18px;
+color: #000;
+}
+
+/* Навігація */
+.tabs {
+display: flex;
+gap: 10px;
+justify-content: center;
+flex-wrap: wrap;
+margin: 20px 0;
+}
+
+.tabs button {
+padding: 13px 22px;
+border: none;
+border-radius: 12px;
+background: white;
+color: #000;
+font-weight: bold;
+cursor: pointer;
+box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.tabs button:hover {
+background: #e9f4ff;
+}
+
+.tabs button.active {
+background: #1857a6;
+color: white;
+}
+
+/* Сторінки */
+.page {
+display: none;
+background: rgba(255,255,255,0.97);
+padding: 25px;
+border-radius: 22px;
+box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.page.active {
+display: block;
+}
+
+h2 {
+color: #000;
+border-bottom: 2px solid #bcd5e8;
+padding-bottom: 8px;
+}
+
+h3 {
+color: #000;
+}
+
+/* Інформаційний блок */
+.info {
+background: #edf7ff;
+border-left: 6px solid #1857a6;
+border-radius: 12px;
+padding: 18px;
+margin: 15px 0;
+line-height: 1.6;
+}
+
+/* Картки */
+.cards {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 15px;
+}
+
+.card {
+background: white;
+border: 1px solid #c9dce9;
+border-radius: 15px;
+padding: 18px;
+transition: 0.2s;
+}
+
+.card:hover {
+transform: translateY(-3px);
+box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+margin-top: 0;
+}
+
+/* Формати */
+.format {
+display: flex;
+align-items: center;
+gap: 15px;
+background: white;
+border: 1px solid #c9dce9;
+border-radius: 14px;
+padding: 15px;
+}
+
+.format-icon {
+font-size: 35px;
+}
+
+/* Завдання */
+.task {
+background: white;
+border: 1px solid #cbdde9;
+border-radius: 17px;
+padding: 20px;
+margin: 18px 0;
+}
+
+.level {
+display: inline-block;
+padding: 6px 12px;
+border-radius: 20px;
+font-size: 13px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+.level1 {
+background: #dff4e8;
+}
+
+.level2 {
+background: #e1efff;
+}
+
+.level3 {
+background: #fff0d2;
+}
+
+.level4 {
+background: #eee2ff;
+}
+
+.question {
+font-size: 18px;
+font-weight: bold;
+line-height: 1.5;
+margin-bottom: 15px;
+}
+
+.option {
+display: block;
+padding: 12px;
+margin: 8px 0;
+border: 1px solid #c9d8e3;
+border-radius: 10px;
+cursor: pointer;
+color: #000;
+background: #fff;
+}
+
+.option:hover {
+background: #eef7ff;
+}
+
+.option input {
+margin-right: 10px;
+}
+
+.text-answer {
+width: 100%;
+padding: 13px;
+font-size: 17px;
+border: 1px solid #9db4c5;
+border-radius: 10px;
+color: #000;
+}
+
+/* Кнопки */
+.buttons {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+margin-top: 20px;
+}
+
+button.action {
+border: none;
+padding: 13px 22px;
+border-radius: 11px;
+background: #1857a6;
+color: white;
+font-weight: bold;
+cursor: pointer;
+}
+
+button.reset {
+background: #e5ebef;
+color: #000;
+}
+
+/* Результат */
+.feedback {
+margin-top: 10px;
+min-height: 22px;
+font-weight: bold;
+}
+
+.correct {
+color: #087a4f;
+}
+
+.wrong {
+color: #b00020;
+}
+
+.result {
+font-size: 23px;
+font-weight: bold;
+margin-top: 20px;
+color: #000;
+}
+
+/* Прогрес */
+.progress-container {
+height: 12px;
+background: #dce7ee;
+border-radius: 10px;
+overflow: hidden;
+margin: 15px 0;
+}
+
+.progress {
+height: 100%;
+width: 0%;
+background: #1857a6;
+transition: 0.4s;
+}
+
+/* Адаптивність */
+@media (max-width: 650px) {
+.container {
+padding: 10px;
+margin: 10px auto;
+}
+
+.header h1 {
+font-size: 27px;
+}
+
+.cards {
+grid-template-columns: 1fr;
+}
+
+.page {
+padding: 16px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+<h1>💻 Текстові документи</h1>
+<p><b>7 клас</b></p>
+<p>Види текстових документів та формати текстових файлів</p>
+</header>
+
+<nav class="tabs">
+<button class="active" onclick="showPage('theory', this)">
+📚 Пояснення
+</button>
+
+<button onclick="showPage('tasks', this)">
+🎯 Інтерактивні завдання
+</button>
+
+<button onclick="showPage('summary', this)">
+🏆 Підсумок
+</button>
+</nav>
+
+<!-- ================= ТЕОРІЯ ================= -->
+
+<section id="theory" class="page active">
+
+<h2>📖 Що таке текстовий документ?</h2>
+
+<div class="info">
+<b>Текстовий документ</b> — це електронний документ,
+основним вмістом якого є текстова інформація.
+Його можна створювати, редагувати, форматувати,
+зберігати та друкувати.
+</div>
+
+<h2>📄 Види текстових документів</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>📑 Реферат</h3>
+<p>Навчальна робота з певної теми.</p>
+</div>
+
+<div class="card">
+<h3>✉️ Лист</h3>
+<p>Письмове повідомлення іншій особі.</p>
+</div>
+
+<div class="card">
+<h3>📝 Заява</h3>
+<p>Офіційне звернення з проханням або повідомленням.</p>
+</div>
+
+<div class="card">
+<h3>📘 Інструкція</h3>
+<p>Документ, що містить послідовність дій.</p>
+</div>
+
+<div class="card">
+<h3>📰 Стаття</h3>
+<p>Текст для подання інформації або результатів дослідження.</p>
+</div>
+
+<div class="card">
+<h3>✍️ Твір</h3>
+<p>Власне висловлення автора на певну тему.</p>
+</div>
+
+</div>
+
+<h2>📁 Формати текстових файлів</h2>
+
+<div class="cards">
+
+<div class="format">
+<span class="format-icon">📄</span>
+<div>
+<b>.DOCX</b>
+<br>
+Сучасний формат Microsoft Word для створення та редагування.
+</div>
+</div>
+
+<div class="format">
+<span class="format-icon">📕</span>
+<div>
+<b>.PDF</b>
+<br>
+Формат для збереження вигляду готового документа.
+</div>
+</div>
+
+<div class="format">
+<span class="format-icon">📃</span>
+<div>
+<b>.TXT</b>
+<br>
+Простий текст без складного форматування.
+</div>
+</div>
+
+<div class="format">
+<span class="format-icon">📗</span>
+<div>
+<b>.ODT</b>
+<br>
+Відкритий формат текстового документа.
+</div>
+</div>
+
+<div class="format">
+<span class="format-icon">🗎</span>
+<div>
+<b>.RTF</b>
+<br>
+Формат із базовими можливостями форматування.
+</div>
+</div>
+
+<div class="format">
+<span class="format-icon">📋</span>
+<div>
+<b>.DOC</b>
+<br>
+Старіший формат документів Microsoft Word.
+</div>
+</div>
+
+</div>
+
+<div class="info">
+<b>💡 Запам'ятай:</b><br>
+DOCX — редагування документа<br>
+PDF — збереження вигляду<br>
+TXT — простий текст<br>
+ODT — відкритий формат
+</div>
+
+</section>
+
+
+<!-- ================= ЗАВДАННЯ ================= -->
+
+<section id="tasks" class="page">
+
+<h2>🎯 12 інтерактивних завдань</h2>
+
+<p>
+Виконай завдання від простих до складніших.
+Після завершення натисни <b>«Перевірити відповіді»</b>.
+</p>
+
+<div class="progress-container">
+<div id="progress" class="progress"></div>
+</div>
+
+<div id="tasksContainer"></div>
+
+<div class="buttons">
+<button class="action" onclick="checkAnswers()">
+✅ Перевірити відповіді
+</button>
+
+<button class="action reset" onclick="resetTasks()">
+🔄 Почати спочатку
+</button>
+</div>
+
+<div id="result" class="result"></div>
+
+</section>
+
+
+<!-- ================= ПІДСУМОК ================= -->
+
+<section id="summary" class="page">
+
+<h2>🏆 Підсумок уроку</h2>
+
+<div class="info">
+
+<p>✅ Я знаю, що таке текстовий документ.</p>
+
+<p>✅ Я розрізняю види текстових документів.</p>
+
+<p>✅ Я знаю основні формати текстових файлів.</p>
+
+<p>✅ Я розумію різницю між DOCX, PDF, TXT та ODT.</p>
+
+<p>✅ Я можу вибрати потрібний формат для певної ситуації.</p>
+
+</div>
+
+<h2>🤔 Рефлексія</h2>
+
+<div class="card">
+
+<p><b>1.</b> Який формат краще використати для документа,
+який потрібно редагувати?</p>
+
+<p><b>2.</b> Який формат краще використати,
+щоб зберегти незмінним вигляд готового документа?</p>
+
+<p><b>3.</b> Який формат використовують для простого тексту?</p>
+
+</div>
+
+</section>
+
+</div>
+
+
+<script>
+
+/* ================= НАВІГАЦІЯ ================= */
+
+function showPage(pageId, button) {
+
+document.querySelectorAll('.page').forEach(page => {
+page.classList.remove('active');
+});
+
+document.getElementById(pageId).classList.add('active');
+
+document.querySelectorAll('.tabs button').forEach(btn => {
+btn.classList.remove('active');
+});
+
+button.classList.add('active');
+}
+
+
+/* ================= ЗАПИТАННЯ ================= */
+
+const questions = [
+
+{
+level: "I рівень · Початковий",
+className: "level1",
+question: "1. Що є основним вмістом текстового документа?",
+options: ["Текст", "Музика", "Відео", "Анімація"],
+answer: ["Текст"]
+},
+
+{
+level: "I рівень · Початковий",
+className: "level1",
+question: "2. Яке розширення має простий текстовий файл?",
+options: [".txt", ".jpg", ".mp3", ".exe"],
+answer: [".txt"]
+},
+
+{
+level: "I рівень · Початковий",
+className: "level1",
+question: "3. Який документ містить послідовність дій?",
+options: ["Інструкція", "Лист", "Твір", "Заява"],
+answer: ["Інструкція"]
+},
+
+{
+level: "II рівень · Середній",
+className: "level2",
+question: "4. Які два формати є форматами текстових документів?",
+options: [".docx", ".pdf", ".mp3", ".png"],
+answer: [".docx", ".pdf"],
+multiple: true
+},
+
+{
+level: "II рівень · Середній",
+className: "level2",
+question: "5. Який формат найкраще обрати для готового документа, щоб зберегти його вигляд?",
+options: [".pdf", ".txt", ".mp3", ".exe"],
+answer: [".pdf"]
+},
+
+{
+level: "II рівень · Середній",
+className: "level2",
+question: "6. Для чого найчастіше використовують DOCX?",
+options: [
+"Для створення та редагування текстових документів",
+"Для запису музики",
+"Для перегляду відео",
+"Для створення фотографій"
+],
+answer: ["Для створення та редагування текстових документів"]
+},
+
+{
+level: "III рівень · Достатній",
+className: "level3",
+question: "7. До директора школи потрібно подати офіційне прохання. Який документ слід підготувати?",
+options: ["Заяву", "Твір", "Статтю", "Інструкцію"],
+answer: ["Заяву"]
+},
+
+{
+level: "III рівень · Достатній",
+className: "level3",
+question: "8. Обери всі правильні твердження про TXT.",
+options: [
+"Містить простий текст",
+"Не призначений для складного форматування",
+"Є форматом відео",
+"Може містити звичайний текст"
+],
+answer: [
+"Містить простий текст",
+"Не призначений для складного форматування",
+"Може містити звичайний текст"
+],
+multiple: true
+},
+
+{
+level: "III рівень · Достатній",
+className: "level3",
+question: "9. Яке розширення відповідає відкритому формату OpenDocument Text?",
+options: [".odt", ".docx", ".jpg", ".mp4"],
+answer: [".odt"]
+},
+
+{
+level: "IV рівень · Високий",
+className: "level4",
+question: "10. Ти створюєш реферат, який учитель повинен мати можливість редагувати. Який формат обереш?",
+options: [".docx", ".pdf", ".txt", ".mp3"],
+answer: [".docx"]
+},
+
+{
+level: "IV рівень · Високий",
+className: "level4",
+question: "11. Ти завершив документ і хочеш надіслати його так, щоб оформлення не змінилося. Який формат обереш?",
+options: [".pdf", ".txt", ".doc", ".mp3"],
+answer: [".pdf"]
+},
+
+{
+level: "IV рівень · Високий",
+className: "level4",
+question: "12. Напиши розширення формату для простого тексту без складного форматування.",
+text: true,
+answer: ["txt"]
+}
+
+];
+
+
+/* ================= СТВОРЕННЯ ЗАВДАНЬ ================= */
+
+const container = document.getElementById("tasksContainer");
+
+questions.forEach((item, index) => {
+
+const task = document.createElement("div");
+
+task.className = "task";
+
+let html = `
+<span class="level ${item.className}">
+${item.level}
+</span>
+
+<div class="question">
+${item.question}
+</div>
+`;
+
+if (item.text) {
+
+html += `
+<input
+type="text"
+class="text-answer"
+id="text${index}"
+placeholder="Введи відповідь..."
+>
+`;
+
+} else {
+
+item.options.forEach(option => {
+
+html += `
+<label class="option">
+
+<input
+type="${item.multiple ? "checkbox" : "radio"}"
+name="question${index}"
+value="${option}"
+>
+
+${option}
+
+</label>
+`;
+
+});
+
+}
+
+html += `
+<div
+class="feedback"
+id="feedback${index}">
+</div>
+`;
+
+task.innerHTML = html;
+
+container.appendChild(task);
+
+});
+
+
+/* ================= ПЕРЕВІРКА ================= */
+
+function checkAnswers() {
+
+let score = 0;
+
+questions.forEach((item, index) => {
+
+let userAnswer = [];
+
+if (item.text) {
+
+const input =
+document.getElementById("text" + index);
+
+userAnswer = [
+input.value
+.trim()
+.toLowerCase()
+.replace(".", "")
+];
+
+} else {
+
+const checked =
+document.querySelectorAll(
+`input[name="question${index}"]:checked`
+);
+
+checked.forEach(input => {
+userAnswer.push(input.value);
+});
+
+}
+
+const correct =
+userAnswer.length === item.answer.length &&
+userAnswer.every(
+answer => item.answer.includes(answer)
+);
+
+const feedback =
+document.getElementById(
+"feedback" + index
+);
+
+if (correct) {
+
+score++;
+
+feedback.textContent =
+"✅ Правильно!";
+
+feedback.className =
+"feedback correct";
+
+} else {
+
+feedback.textContent =
+"❌ Неправильно. Спробуй ще раз.";
+
+feedback.className =
+"feedback wrong";
+}
+
+});
+
+
+/* Результат */
+
+const percentage =
+Math.round((score / questions.length) * 100);
+
+document.getElementById("progress").style.width =
+percentage + "%";
+
+
+let message = "";
+
+if (score >= 11) {
+message = "🌟 Відмінний результат!";
+} else if (score >= 9) {
+message = "👏 Дуже добре!";
+} else if (score >= 7) {
+message = "👍 Добре!";
+} else if (score >= 5) {
+message = "📚 Варто ще раз повторити матеріал.";
+} else {
+message = "💡 Переглянь пояснення та спробуй ще раз.";
+}
+
+
+document.getElementById("result").innerHTML =
+`Результат: ${score} із ${questions.length}<br>${message}`;
+
+}
+
+
+/* ================= СКИДАННЯ ================= */
+
+function resetTasks() {
+
+document
+.querySelectorAll("input")
+.forEach(input => {
+
+if (
+input.type === "radio" ||
+input.type === "checkbox"
+) {
+input.checked = false;
+} else {
+input.value = "";
+}
+
+});
+
+
+document
+.querySelectorAll(".feedback")
+.forEach(feedback => {
+feedback.textContent = "";
+});
+
+
+document.getElementById("result").textContent = "";
+
+document.getElementById("progress").style.width = "0%";
+}
+
+</script>
+
+</body>
+</html>
